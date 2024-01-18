@@ -1,0 +1,19 @@
+{
+  "name": "siteproject",
+  "version": "1.0.0",
+  "description": "webchat",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "SitePROJECT"
+  },
+  "author": "w1ron NerArDmi Ar10niD",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.4"
+  }
+}
