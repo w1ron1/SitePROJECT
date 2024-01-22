@@ -1,14 +1,31 @@
-const express = require('express');
-const { createServer } = require('node:http');
-const { join } = require('node:path');
+document.addEventListener('DOMContentLoaded', function () {
+ const socket = io();
 
-const app = express();
-const server = createServer(app);
+ const form = document.getElementById('form');
+ const inputMessage = document.getElementById('m');
+ const messagesList = document.getElementById('messages');
 
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, '/index.html'));
-});
+ socket.on('connect', function () {
+   console.log('Connected to the server');
+ });
 
-server.listen(3000, () => {
-  console.log('server running at http://localhost:3000');
+ socket.on('disconnect', function () {
+   console.log('Disconnected from the server');
+ });
+
+ form.addEventListener('submit', function(event) {
+   event.preventDefault();
+   
+   const message = inputMessage.value.trim();
+   if (message) {
+     socket.emit('chat message', message);
+     inputMessage.value = '';
+   }
+ });
+
+ socket.on('chat message', function(msg) {
+   const listItem = document.createElement('li');
+   listItem.textContent = msg;
+   messagesList.appendChild(listItem);
+ });
 });
