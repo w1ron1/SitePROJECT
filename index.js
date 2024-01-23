@@ -1,31 +1,24 @@
-document.addEventListener('DOMContentLoaded', function () {
- const socket = io();
+$(document).ready(() => {
+  const socket = io();
 
- const form = document.getElementById('form');
- const inputMessage = document.getElementById('m');
- const messagesList = document.getElementById('messages');
+  $('#form').submit((e) => {
+      e.preventDefault();
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+  });
 
- socket.on('connect', function () {
-   console.log('Connected to the server');
- });
+  socket.on('chat message', (msg) => {
+      $('#chat').append($('<div class="message">').text(msg));
+      scrollChatToBottom();
+  });
 
- socket.on('disconnect', function () {
-   console.log('Disconnected from the server');
- });
-
- form.addEventListener('submit', function(event) {
-   event.preventDefault();
-   
-   const message = inputMessage.value.trim();
-   if (message) {
-     socket.emit('chat message', message);
-     inputMessage.value = '';
-   }
- });
-
- socket.on('chat message', function(msg) {
-   const listItem = document.createElement('li');
-   listItem.textContent = msg;
-   messagesList.appendChild(listItem);
- });
+  if (msg = '/clear') {
+    
+  }
+  
+  function scrollChatToBottom() {
+      const chatBox = $('#chat');
+      chatBox.scrollTop(chatBox[0].scrollHeight);
+  }
 });

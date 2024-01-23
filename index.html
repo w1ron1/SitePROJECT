@@ -1,31 +1,29 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <link rel="stylesheet" href="styles.css">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-  <div class = "message-text">
-    <ul id="messages"></ul>
-    <form id="form" action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-  </div>
+    <div class="bg">
+        <video autoplay loop muted playsinline class="bg-video">
+            <source src="mp4img/bg.mp4" type="video/mp4">
+        </video>
+    </div>
 
-  <div>
-    <video autoplay loop muted playsinline class="bg">
-      <source src="mp4img/bg.mp4" type="video/mp4">
-    </video>
-  </div>
+    <div class="chat-container">
+        <div id="chat">
+            <div class="chat-box"></div>
+            <form id="form" action="">
+                <input id="m" autocomplete="off" /><button>Send</button>
+            </form>
+        </div>
+    </div>
 
-  <div class="chat-box"></div>
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
 </body>
-
 </html>

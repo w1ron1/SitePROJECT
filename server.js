@@ -1,29 +1,27 @@
 const express = require('express');
 const app = express();
-const http = require("http");
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
- res.sendfile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
-io.on('chat message', (msg) => {
- io.emit('chat message', msg); 
+io.on('connection', (socket) => {
+    console.log('a user connected');
+
+    socket.on('disconnect', () => {
+        console.log('a user has disconnected');
+    });
+
+    socket.on('chat message', (msg) => {
+        io.emit('chat message', msg);
+    });
 });
 
-io.on("connection", (socket) => {
-  console.log("a user connected");
-
-  socket.on("disconnect", () => {
-    console.log("a user has diconnected");
-  });
+const PORT = 7777;
+http.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
 });
-
-server.listen(3000, () => {
- console.log('server running at http://localhost:3000');
-}); 
-
